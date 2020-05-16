@@ -358,7 +358,7 @@ void step(void)
 	else if (mode == OPENMP) {
 		//calculate force and acceleration for all bodies
 		int i, j;
-		#pragma omp parallel for default(none) shared(nbodies,N,fx,fy,ax,ay) private(i,j,d_x,d_y,distance_ij_powed)
+		#pragma omp parallel for shared(nbodies,N,fx,fy,ax,ay)
 		for (i = 0; i < N; i++) {
 			for (j = 0; j < N; j++) {
 				// calculate distance from body j to body i firstly  
@@ -381,7 +381,7 @@ void step(void)
 		#pragma omp barrier
 
 		//calculate motion for all bodies 
-		#pragma omp parallel for default(none) shared(nbodies,N,ax,ay) private(i)
+		#pragma omp parallel for shared(nbodies,N,ax,ay) private(i)
 		for (i = 0; i < N; i++) {
 			nbodies[i].vx = nbodies[i].vx + dt * ax[i];
 			nbodies[i].vy = nbodies[i].vy + dt * ay[i];
