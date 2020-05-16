@@ -10,7 +10,12 @@ struct nbody{
 	float x, y, vx, vy, m;
 };
 
+struct nbody_soa{
+	float *x, *y, *vx, *vy, *m;
+};
+
 typedef enum MODE { CPU, OPENMP, CUDA } MODE;
 typedef struct nbody nbody;
+typedef struct nbody_soa nbody_soa;
 
 #endif	//__NBODY_HEADER__
